@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const session = require('express-session')
 const mongoose = require('mongoose')
-const cors = require('cors')
 
 // Import route handlers
 const authRoutes = require('./routes/authRoutes')
@@ -22,12 +21,10 @@ db.on('error', (error) => console.error(error.message))
 // Initialize express app
 const app = express()
 
-app.use(cors())
-
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888');
+    res.setHeader('Access-Control-Allow-Origin', 'https://adg-recruitments-2023.vercel.app');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
