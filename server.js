@@ -32,7 +32,13 @@ app.use(session({
     cookie: {secure: false, maxAge: 2*60*60*1000} // 2 hours
 }));
 
-app.use(cors())
+const corsOptions = {
+    origin: 'https://adg-recruitments-2023.vercel.app',
+    credentials: true,
+    optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions))
 
 // Root route
 app.get('/', (req,res) => res.send('Server root route'))
