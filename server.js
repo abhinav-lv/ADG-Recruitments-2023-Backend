@@ -31,6 +31,13 @@ app.use(session({
     cookie: {secure: true, maxAge: 24*60*60*1000} // 24 hours
 }));
 
+app.use((req,res,next) => {
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+    res.setHeader('Access-Control-Allow-Origin', 'https://adg-recruitments-2023.vercel.app');
+    next()
+})
+
 // Root route
 app.get('/', (req,res) => res.send('Server root route'))
 
