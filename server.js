@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const session = require('express-session')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 // Import route handlers
 const authRoutes = require('./routes/authRoutes')
@@ -20,25 +21,11 @@ db.on('error', (error) => console.error(error.message))
 
 // Initialize express app
 const app = express()
-
-app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://adg-recruitments-2023.vercel.app');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
+app.use(cors({
+    origin: 'https://adg-recruitments-2023.vercel.app/',
+    credentials: true,
+    methods: ["POST", "GET", "PUT", "OPTIONS", "HEAD"]
+}))
 
 // Middleware
 app.use(express.json())
@@ -47,7 +34,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {secure: true, httpOnly: true, sameSite: 'none'} // 24 hours
+    cookie: {secure: true, maxAge: 2*60*60*1000, httpOnly: true, sameSite: false} // 2 hours
 }));
 
 // Root route
