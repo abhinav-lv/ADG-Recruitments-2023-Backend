@@ -22,7 +22,7 @@ db.on('error', (error) => console.error(error.message))
 // Initialize express app
 const app = express()
 app.use(cors({
-    origin: 'https://adg-recruitments-2023.vercel.app/',
+    origin: 'https://adg-recruitments-2023.vercel.app',
     credentials: true,
     methods: ["POST", "GET", "PUT", "OPTIONS", "HEAD"]
 }))
