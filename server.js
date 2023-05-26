@@ -28,15 +28,8 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {secure: true, maxAge: 2*60*60*1000, httpOnly: true, sameSite: 'none'} // 2 hours
+    cookie: {secure: true, maxAge: 24*60*60*1000} // 24 hours
 }));
-
-app.use((req,res,next) => {
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-    res.setHeader('Access-Control-Allow-Origin', 'https://adg-recruitments-2023.vercel.app');
-    next()
-})
 
 // Root route
 app.get('/', (req,res) => res.send('Server root route'))
