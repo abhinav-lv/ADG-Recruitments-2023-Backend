@@ -29,13 +29,10 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {secure: false, maxAge: 2*60*60*1000, secure: true, sameSite: 'none'} // 2 hours
+    cookie: {secure: false, maxAge: 2*60*60*1000, secure: true} // 2 hours
 }));
 
-app.use(cors({
-    origin: 'https://adg-recruitments-2023.vercel.app',
-    credentials: true
-}))
+app.use(cors())
 
 // Root route
 app.get('/', (req,res) => res.send('Server root route'))
