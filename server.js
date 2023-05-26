@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const session = require('express-session')
 const mongoose = require('mongoose')
-const cors = require('cors')
 
 // Import route handlers
 const authRoutes = require('./routes/authRoutes')
@@ -31,12 +30,6 @@ app.use(session({
     saveUninitialized: false,
     cookie: {secure: true, maxAge: 2*60*60*1000, httpOnly: true, sameSite: 'none'} // 2 hours
 }));
-
-app.use(cors({
-    origin: 'https://adg-recruitments-2023.vercel.app',
-    credentials: true,
-    methods: ["POST", "GET", "PUT", "OPTIONS", "HEAD"]
-}))
 
 app.use((req,res,next) => {
     res.setHeader('Access-Control-Allow-Credentials', true);
