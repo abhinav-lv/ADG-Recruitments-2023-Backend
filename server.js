@@ -21,11 +21,6 @@ db.on('error', (error) => console.error(error.message))
 
 // Initialize express app
 const app = express()
-app.use(cors({
-    origin: 'https://adg-recruitments-2023.vercel.app',
-    credentials: true,
-    methods: ["POST", "GET", "PUT", "OPTIONS", "HEAD"]
-}))
 
 // Middleware
 app.use(express.json())
@@ -34,8 +29,21 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {secure: true, maxAge: 2*60*60*1000, httpOnly: true, sameSite: false} // 2 hours
+    cookie: {secure: true, maxAge: 2*60*60*1000, httpOnly: true, sameSite: 'none'} // 2 hours
 }));
+
+app.use(cors({
+    origin: 'https://adg-recruitments-2023.vercel.app',
+    credentials: true,
+    methods: ["POST", "GET", "PUT", "OPTIONS", "HEAD"]
+}))
+
+app.use((req,res,next) => {
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+    res.setHeader('Access-Control-Allow-Origin', 'https://adg-recruitments-2023.vercel.app');
+    next()
+})
 
 // Root route
 app.get('/', (req,res) => res.send('Server root route'))
