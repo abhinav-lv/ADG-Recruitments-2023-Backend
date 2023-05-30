@@ -29,7 +29,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {secure: false, maxAge: 2*60*60*1000, httpOnly: true, path:'/', sameSite: 'none', domain: '.adg-recruitments-2023.vercel.app'} // 2 hours
+    cookie: {secure: true, maxAge: 2*60*60*1000, httpOnly: true, path:'/', sameSite: 'none',} // 2 hours
 }));
 
 const corsOptions = {
