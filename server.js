@@ -29,13 +29,14 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {secure: false, maxAge: 2*60*60*1000, httpOnly: true, sameSite: 'none'} // 2 hours
+    cookie: {secure: false, maxAge: 2*60*60*1000, httpOnly: false, sameSite: 'none'} // 2 hours
 }));
 
 const corsOptions = {
     origin: 'https://adg-recruitments-2023.vercel.app',
     credentials: true,
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 200,
+    exposedHeaders: ["set-cookie"]
 }
 
 app.use(cors(corsOptions))
