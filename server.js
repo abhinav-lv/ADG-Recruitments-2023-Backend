@@ -33,13 +33,14 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 // Middleware
+app.set("trust proxy", 1);
 app.use(express.json())
 app.use(session({
     store: redisStore,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {secure: false, maxAge: 2*60*60*1000, httpOnly: false, sameSite: 'none'} // 2 hours
+    cookie: {secure: false, maxAge: 2*60*60*1000, httpOnly: true, sameSite: 'none'} // 2 hours
 }));
 
 // Root route
